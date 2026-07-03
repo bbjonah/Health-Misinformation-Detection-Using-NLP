@@ -1,0 +1,308 @@
+###############################################################
+# Health Misinformation Detection Using NLP
+# Author: Jonah Buka
+###############################################################
+
+import os
+import re
+import string
+import warnings
+
+warnings.filterwarnings("ignore")
+
+import joblib
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import (
+    classification_report,
+    confusion_matrix,
+    ConfusionMatrixDisplay,
+    roc_curve,
+    auc
+)
+
+from sklearn.linear_model import LogisticRegression
+
+###############################################################
+# Create folders
+###############################################################
+
+os.makedirs("models", exist_ok=True)
+os.makedirs("outputs", exist_ok=True)
+
+###############################################################
+# Load Dataset
+###############################################################
+
+df = pd.read_excel(
+    "data/Health_Misinformation_Detection_Using_NLP_Synthetic_Dataset.xlsx"
+)
+
+print(df.head())
+
+###############################################################
+# Dataset Information
+###############################################################
+
+print("\nDataset Shape")
+print(df.shape)
+
+print("\nMissing Values")
+print(df.isnull().sum())
+
+print("\nLabel Counts")
+print(df["label"].value_counts())
+
+###############################################################
+# Basic EDA
+###############################################################
+
+plt.figure(figsize=(6,4))
+df["label"].value_counts().plot(kind="bar")
+plt.title("Label Distribution")
+plt.xlabel("Label")
+plt.ylabel("Count")
+plt.tight_layout()
+plt.savefig("outputs/label_distribution.png")
+plt.close()
+
+plt.figure(figsize=(8,5))
+df["source_type"].value_counts().plot(kind="bar")
+plt.title("Source Distribution")
+plt.tight_layout()
+plt.savefig("outputs/source_distribution.png")
+plt.close()
+
+###############################################################
+# Text Cleaning
+###############################################################
+
+def clean_text(text):
+
+    text = text.lower()
+
+    text = re.sub(r"http\\S+", "", text)
+
+    text = re.sub(r"www\\S+", "", text)
+
+    text = re.sub(r"@[A-Za-z0-9_]+", "", text)
+
+    text = re.sub(r"#", "", text)
+
+    text = text.translate(str.maketrans("", "", string.punctuation))
+
+    text = re.sub(r"\d+", "", text)
+
+    text = re.sub(r"\s+", " ", text)
+
+    return text.strip()
+
+df["clean_text"] = df["text"].apply(clean_text)
+
+###############################################################
+# Features
+###############################################################
+
+X = df["clean_text"]
+
+y = df["label"]
+
+###############################################################
+# Train Test Split
+###############################################################
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.20,
+    random_state=42,
+    stratify=y
+)
+
+###############################################################
+# TF-IDF + Logistic Regression Pipeline
+###############################################################
+
+pipeline = Pipeline([
+    (
+        "tfidf",
+        TfidfVectorizer(
+            stop_words="english",
+            max_features=5000,
+            ngram_range=(1,2)
+        )
+    ),
+
+    (
+        "model",
+        LogisticRegression(max_iter=1000)
+    )
+])
+
+###############################################################
+# Train
+###############################################################
+
+pipeline.fit(X_train, y_train)
+
+###############################################################
+# Predictions
+###############################################################
+
+predictions = pipeline.predict(X_test)
+
+probabilities = pipeline.predict_proba(X_test)[:,1]
+
+###############################################################
+# Evaluation
+###############################################################
+
+print("\nClassification Report\n")
+
+print(classification_report(y_test, predictions))
+
+###############################################################
+# Confusion Matrix
+###############################################################
+
+cm = confusion_matrix(y_test, predictions)
+
+disp = ConfusionMatrixDisplay(cm)
+
+disp.plot()
+
+plt.title("Confusion Matrix")
+
+plt.savefig("outputs/confusion_matrix.png")
+
+plt.close()
+
+###############################################################
+# ROC Curve
+###############################################################
+
+fpr, tpr, threshold = roc_curve(
+    y_test,
+    probabilities
+)
+
+roc_auc = auc(fpr, tpr)
+
+plt.figure(figsize=(6,5))
+
+plt.plot(fpr, tpr,
+         label=f"AUC = {roc_auc:.2f}")
+
+plt.plot([0,1],[0,1],"--")
+
+plt.xlabel("False Positive Rate")
+
+plt.ylabel("True Positive Rate")
+
+plt.title("ROC Curve")
+
+plt.legend()
+
+plt.tight_layout()
+
+plt.savefig("outputs/roc_curve.png")
+
+plt.close()
+
+###############################################################
+# Most Important Words
+###############################################################
+
+vectorizer = pipeline.named_steps["tfidf"]
+
+classifier = pipeline.named_steps["model"]
+
+feature_names = np.array(
+    vectorizer.get_feature_names_out()
+)
+
+coefficients = classifier.coef_[0]
+
+top_positive = coefficients.argsort()[-20:]
+
+plt.figure(figsize=(10,6))
+
+plt.barh(
+    feature_names[top_positive],
+    coefficients[top_positive]
+)
+
+plt.title("Top Words Predicting Misinformation")
+
+plt.tight_layout()
+
+plt.savefig("outputs/top_words.png")
+
+plt.close()
+
+###############################################################
+# Save Model
+###############################################################
+
+joblib.dump(
+    pipeline,
+    "models/misinformation_model.pkl"
+)
+
+print("\nModel Saved!")
+
+###############################################################
+# Prediction Function
+###############################################################
+
+def detect_misinformation(text):
+
+    prediction = pipeline.predict([text])[0]
+
+    probability = pipeline.predict_proba([text])[0][1]
+
+    if prediction == 1:
+
+        label = "Misinformation"
+
+    else:
+
+        label = "Factual"
+
+    print("\nText:")
+    print(text)
+
+    print("\nPrediction:", label)
+
+    print("Confidence:", round(probability,3))
+
+###############################################################
+# Example Predictions
+###############################################################
+
+samples = [
+
+    "COVID vaccines contain tracking microchips.",
+
+    "Antibiotics do not treat viral infections.",
+
+    "Garlic cures HIV completely.",
+
+    "Regular exercise improves heart health.",
+
+    "Drinking bleach cures malaria."
+
+]
+
+for s in samples:
+
+    detect_misinformation(s)
+
+###############################################################
+# End
+###############################################################
