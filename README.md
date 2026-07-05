@@ -2,13 +2,13 @@
 
 <div align="center">
 
-An end-to-end NLP classification system that preprocesses health-related text, vectorizes it with TF-IDF, and trains a Logistic Regression classifier to distinguish Factual from Misinformation content — with full evaluation metrics, explainability visualizations, and saved models ready for inference.
+An end-to-end NLP classification system that preprocesses health-related text, vectorizes it with TF-IDF, and trains a Logistic Regression classifier to distinguish Factual from Misinformation content with full evaluation metrics, explainability visualizations, and saved models ready for inference.
 
 </div>
 
 📌 Problem
 
-Health misinformation has become one of the most pressing challenges in digital healthcare. Misleading medical advice and false health claims spread rapidly across social media, blogs, forums, and messaging platforms — influencing public behavior and eroding trust in evidence-based medicine.
+Health misinformation has become one of the most pressing challenges in digital healthcare. Misleading medical advice and false health claims spread rapidly across social media, blogs, forums, and messaging platforms influencing public behavior and eroding trust in evidence-based medicine.
 
 Manual fact-checking cannot scale to the volume of health content produced daily. This creates a critical need for automated, ML-powered solutions that can:
 
