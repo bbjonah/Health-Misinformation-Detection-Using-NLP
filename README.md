@@ -73,7 +73,7 @@ Inference: Demonstrate real-world prediction on new text samples with class labe
 
 
 
-📊 Key Features
+### 📊 Key Features
 
 
 ✅ Complete NLP pipeline: Raw text in → cleaned → TF-IDF vectorized → classified → evaluated, all in a single reproducible script
