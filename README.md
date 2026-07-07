@@ -271,11 +271,11 @@ See the LICENSE file for full details.
 🙌 Acknowledgements
 
 
-Scikit-learn community — for the consistent, well-documented ML API powering the classification pipeline and TF-IDF vectorization
-Pandas & NumPy — for robust data manipulation and numerical computation throughout the preprocessing and evaluation stages
-Matplotlib — for clean, publication-ready visualizations generated from model outputs
-Joblib — for efficient model serialization enabling inference without retraining
-The broader NLP and Public Health AI research community — for advancing the science of automated misinformation detection
+Scikit-learn community: for the consistent, well-documented ML API powering the classification pipeline and TF-IDF vectorization
+Pandas & NumPy: for robust data manipulation and numerical computation throughout the preprocessing and evaluation stages
+Matplotlib: for clean, publication-ready visualizations generated from model outputs
+Joblib: for efficient model serialization enabling inference without retraining
+The broader NLP and Public Health AI research community: for advancing the science of automated misinformation detection
 
 
 
