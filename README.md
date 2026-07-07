@@ -236,7 +236,7 @@ The current pipeline does not handle multilingual content — health misinformat
 Explainability is limited to coefficient inspection; SHAP values would provide more granular, instance-level explanations
 
 
-Future Improvements:
+### Future Improvements:
 
 
 🤖 Fine-tune BERT, RoBERTa, or BioBERT for context-aware health misinformation classification
@@ -253,7 +253,7 @@ Future Improvements:
 <div align="center">
 👤 Author
 
-Buka Jonah
+**Buka Jonah**
 
 🤖 Data Scientist | Machine Learning Enthusiast | NLP Practitioner | Public Health Analytics
 
@@ -264,18 +264,18 @@ Building practical AI and machine learning solutions that address real-world hea
 
 📄 License
 
-This project is licensed under the MIT License — free to use, adapt, and build upon for research, education, and public health applications.
+This project is licensed under the MIT License free to use, adapt, and build upon for research, education, and public health applications.
 See the LICENSE file for full details.
 
 
 🙌 Acknowledgements
 
 
-Scikit-learn community: for the consistent, well-documented ML API powering the classification pipeline and TF-IDF vectorization
-Pandas & NumPy: for robust data manipulation and numerical computation throughout the preprocessing and evaluation stages
-Matplotlib: for clean, publication-ready visualizations generated from model outputs
-Joblib: for efficient model serialization enabling inference without retraining
-The broader NLP and Public Health AI research community: for advancing the science of automated misinformation detection
+**Scikit-learn community:** for the consistent, well-documented ML API powering the classification pipeline and TF-IDF vectorization
+**Pandas & NumPy:** for robust data manipulation and numerical computation throughout the preprocessing and evaluation stages
+**Matplotlib:** for clean, publication-ready visualizations generated from model outputs
+**Joblib:** for efficient model serialization enabling inference without retraining
+**The broader NLP and Public Health AI research community:** for advancing the science of automated misinformation detection
 
 
 
