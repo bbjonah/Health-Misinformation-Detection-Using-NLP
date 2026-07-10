@@ -56,7 +56,7 @@ Data Format: OpenPyXL (.xlsx ingestion)
 
 
 
-⚙️ Methodology / Project Workflow
+## ⚙️ Methodology / Project Workflow
 
 
 Data Ingestion: Load the synthetic Excel dataset using Pandas and OpenPyXL; inspect shape, dtypes, label balance, and source distribution
@@ -87,7 +87,7 @@ Inference: Demonstrate real-world prediction on new text samples with class labe
 
 
 
-📸 Visualisations
+## 📸 Visualisations
 
 🔹 Label Distribution
 
