@@ -6,7 +6,7 @@ An end-to-end NLP classification system that preprocesses health-related text, v
 
 </div>
 
-📌 Problem
+## 📌 Problem
 
 Health misinformation has become one of the most pressing challenges in digital healthcare. Misleading medical advice and false health claims spread rapidly across social media, blogs, forums, and messaging platforms influencing public behavior and eroding trust in evidence-based medicine.
 
@@ -22,7 +22,7 @@ Protect platform integrity through intelligent content moderation
 This project builds a complete NLP pipeline that answers the core question: Can a machine learning model reliably distinguish factual health statements from misinformation?
 
 
-🎯 Objectives
+## 🎯 Objectives
 
 
 Detect health misinformation in raw, unstructured textual content
