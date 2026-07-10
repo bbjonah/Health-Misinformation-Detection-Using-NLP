@@ -35,7 +35,7 @@ Save trained models and vectorizer as .pkl files for future inference without re
 
 
 
-🗂️ Dataset
+## 🗂️ Dataset
 
 The project uses a synthetic dataset representing realistic health-related textual content drawn from a range of online information sources.
 
@@ -44,7 +44,7 @@ Dataset Features
 FeatureDescriptionidRecord identifiertextHealth-related statement or claimsource_typeType of information source (social media, blog, etc.)topicMedical topic areacontains_claimWhether the text makes an explicit health claimsentimentSentiment score of the textlabelTarget variable — 0 = Factual, 1 = MisinformationconfidenceConfidence score associated with the label
 
 
-🛠️ Tools & Technologies
+## 🛠️ Tools & Technologies
 
 
 Language: Python 3.9+
