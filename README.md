@@ -41,7 +41,7 @@ The project uses a synthetic dataset representing realistic health-related textu
 
 Dataset Features
 
-FeatureDescriptionidRecord identifiertextHealth-related statement or claimsource_typeType of information source (social media, blog, etc.)topicMedical topic areacontains_claimWhether the text makes an explicit health claimsentimentSentiment score of the textlabelTarget variable — 0 = Factual, 1 = MisinformationconfidenceConfidence score associated with the label
+FeatureDescriptionidRecord identifiertextHealth-related statement or claimsource_typeType of information source (social media, blog, etc.)topicMedical topic areacontains_claimWhether the text makes an explicit health claimsentimentSentiment score of the textlabelTarget variable 0 = Factual, 1 = MisinformationconfidenceConfidence score associated with the label
 
 
 ## 🛠️ Tools & Technologies
@@ -60,7 +60,7 @@ Data Format: OpenPyXL (.xlsx ingestion)
 
 
 Data Ingestion: Load the synthetic Excel dataset using Pandas and OpenPyXL; inspect shape, dtypes, label balance, and source distribution
-Text Preprocessing: Apply a custom cleaning pipeline — lowercase conversion, URL removal, username stripping, hashtag removal, number removal, punctuation removal, and whitespace normalization
+Text Preprocessing: Apply a custom cleaning pipeline lowercase conversion, URL removal, username stripping, hashtag removal, number removal, punctuation removal, and whitespace normalization
 Feature Engineering: Vectorize cleaned text using TfidfVectorizer with configurable max_features, capturing term frequency weighted by inverse document frequency across the corpus
 Train/Test Split: Split data into 80% training and 20% test sets with stratification to preserve class balance across both partitions
 Pipeline Construction: Wrap TfidfVectorizer + LogisticRegression in a Scikit-learn Pipeline for reproducibility and deployment-ready packaging
